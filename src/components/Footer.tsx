@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
             <span className="text-lg font-semibold">Contest Tracker</span>
           </div>
           <p className="text-gray-400 mb-4">
-            Powered by CLIST API - Your competitive programming companion
+            Built by <span className="text-white font-medium">Abhishek Anand</span> to support every coder's journey.
           </p>
           <div className="flex items-center justify-center text-sm text-gray-400">
             <span>Made with</span>
@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="mt-4 pt-4 border-t border-gray-700">
             <p className="text-xs text-gray-500">
-              Data provided by CLIST.BY - All contest information is subject to change
+              Contest data sourced from CLIST.BY • Use for personal or educational purposes
             </p>
           </div>
         </div>
