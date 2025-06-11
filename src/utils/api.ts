@@ -16,7 +16,7 @@ export const fetchContests = async (params: Record<string, string> = {}) => {
     username: USERNAME,
     api_key: API_KEY,
     format: 'json',
-    limit: '100',
+    limit: '1000',
     ...params
   });
 
@@ -75,7 +75,7 @@ export const getUpcomingContests = async () => {
 
 export const getPastContests = async () => {
   const now = new Date();
-  const startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
+  const startDate = new Date(now.getTime() - 120 * 24 * 60 * 60 * 1000); // 30 days ago
   
   return fetchContests({
     start__gte: startDate.toISOString(),

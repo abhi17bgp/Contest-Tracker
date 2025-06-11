@@ -125,7 +125,7 @@ const PastContests: React.FC = () => {
 
   // Pagination
   const totalPages = Math.ceil(filteredContests.length / contestsPerPage);
-  console.log("pages",totalPages);
+  console.log("pages and filteredContests ",totalPages,filteredContests.length);
   const startIndex = (currentPage - 1) * contestsPerPage;
   const endIndex = startIndex + contestsPerPage;
   const currentContests = filteredContests.slice(startIndex, endIndex);
@@ -284,7 +284,7 @@ const PastContests: React.FC = () => {
               </button>
               
               <div className="flex space-x-1">
-                {[...Array(Math.min(5, totalPages))].map((_, i) => {
+                {[...Array(Math.min(100, totalPages))].map((_, i) => {
                   const pageNum = i+1;
                   return (
                     <button
