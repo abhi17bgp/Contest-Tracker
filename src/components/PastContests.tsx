@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { History, Clock, ExternalLink, Users, Calendar, Filter } from 'lucide-react';
 import { Contest, ApiResponse } from '../types/contest';
 import { getPastContests, PLATFORMS } from '../utils/api';
+import { toast } from 'react-toastify';
 
 const PastContests: React.FC = () => {
   const [contests, setContests] = useState<Contest[]>([]);
@@ -133,6 +134,7 @@ const PastContests: React.FC = () => {
   if (loading) {
     return (
       <div id="past-contests" className="bg-white rounded-lg shadow-md p-6">
+      
         <h2 className="text-2xl font-bold mb-6 flex items-center">
           <History className="w-6 h-6 mr-2 text-purple-600" />
           Past Contests
@@ -141,6 +143,7 @@ const PastContests: React.FC = () => {
           {[...Array(5)].map((_, i) => (
             <div key={i} className="animate-pulse">
               <div className="h-24 bg-gray-200 rounded-lg"></div>
+              
             </div>
           ))}
         </div>
@@ -273,7 +276,7 @@ const PastContests: React.FC = () => {
           </div>
 
           {/* Pagination */}
-          {totalPages > 1 && (
+          {/* {totalPages > 1 && (
             <div className="flex justify-center items-center mt-8 space-x-2">
               <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
@@ -284,8 +287,8 @@ const PastContests: React.FC = () => {
               </button>
               
               <div className="flex space-x-1">
-                {[...Array(Math.min(100, totalPages))].map((_, i) => {
-                  const pageNum = i+1;
+                {[...Array(Math.min(5, totalPages))].map((_, i) => {
+                  const pageNum = currentPage+1;
                   return (
                     <button
                       key={pageNum}
@@ -311,7 +314,72 @@ const PastContests: React.FC = () => {
               </button>
 
             </div>
-          )}
+          )} */}
+          {totalPages > 1 && (
+  <div className="flex justify-center items-center mt-8 space-x-2">
+    <button
+      onClick={() => {
+        const prevPage = Math.max(currentPage - 1, 1);
+        setCurrentPage(prevPage);
+        if (prevPage === 1) {
+       toast.info("You are already on the first page.");
+        }
+      }}
+      disabled={currentPage === 1}
+      className="px-3 py-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+    >
+      Previous
+    </button>
+    
+    <div className="flex space-x-1">
+      {(() => {
+        // Calculate the range of pages to show (5 pages at a time)
+        let startPage;
+        if (totalPages <= 5) {
+          startPage = 1;
+        } else if (currentPage <= 3) {
+          startPage = 1;
+        } else if (currentPage >= totalPages - 2) {
+          startPage = totalPages - 4;
+        } else {
+          startPage = currentPage - 2;
+        }
+
+        const endPage = Math.min(startPage + 4, totalPages);
+        
+        return Array.from({ length: endPage - startPage + 1 }, (_, i) => {
+          const pageNum = startPage + i;
+          return (
+            <button
+              key={pageNum}
+              onClick={() => setCurrentPage(pageNum)
+                
+                
+              }
+
+              className={`px-3 py-2 border rounded-md ${
+                currentPage === pageNum
+                  ? 'bg-purple-600 text-white border-purple-600'
+                  : 'border-gray-300 hover:bg-gray-50'
+              }`}
+            >
+              {pageNum}
+              
+            </button>
+          );
+        });
+      })()}
+    </div>
+
+    <button
+      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+      disabled={currentPage === totalPages}
+      className="px-3 py-2 border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+    >
+      Next
+    </button>
+  </div>
+)}
         </>
       )}
     </div>

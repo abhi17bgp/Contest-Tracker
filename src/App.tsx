@@ -5,6 +5,7 @@ import ContestChart from './components/ContestChart';
 import PastContests from './components/PastContests';
 import Footer from './components/Footer';
 
+
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -24,6 +25,7 @@ function App() {
       </main>
       
       <Footer />
+       
     </div>
   );
 }
