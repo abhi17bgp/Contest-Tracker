@@ -66,7 +66,8 @@ const UpcomingContests: React.FC = () => {
   const getTimeUntilContest = (startTime: string) => {
     const contestStart = new Date(startTime);
     const now = currentTime;
-    const timeDiff = contestStart.getTime() - now.getTime();
+    const timeDiff = (contestStart.getTime()+ (5.5 * 60 * 60 * 1000)) - now.getTime();
+    console.log(contestStart.getTime(),now.getTime());
 
     if (timeDiff <= 0) {
       return { text: 'Started', color: 'text-green-600', urgent: false };
@@ -75,6 +76,7 @@ const UpcomingContests: React.FC = () => {
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    console.log(days,hours,minutes);
 
     let timeText = '';
     let color = 'text-blue-600';

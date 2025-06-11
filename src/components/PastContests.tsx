@@ -114,8 +114,10 @@ const PastContests: React.FC = () => {
   const getTimeSince = (dateString: string) => {
     const contestDate = new Date(dateString);
     const now = new Date();
-    const diffTime = Math.abs(now.getTime() - contestDate.getTime());
+    const diffTime = Math.abs(now.getTime() - contestDate.getTime()) - (5.5 * 60 * 60 * 1000) ;
+    
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 1) return '1 day ago';
     if (diffDays < 7) return `${diffDays} days ago`;
